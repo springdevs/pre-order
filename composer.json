@@ -1,0 +1,22 @@
+{
+  "name": "springdevs/pre-order",
+  "description": "Allow customers to pre-order from your store",
+  "type": "wordpress-plugin",
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "SpringDevs",
+      "email": "contact@springdevs.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "SpringDevs\\PreOrder\\": "includes/"
+    },
+    "files": [
+      "includes/functions.php"
+    ]
+  }
+}
