@@ -69,7 +69,7 @@ class Product
         if ($echo) :
 ?>
             <p>
-                <strong <?php echo $attr; ?>><?php _e($summery_text, 'sdevs_wea'); ?></strong>
+                <strong <?php echo $attr; ?>><?php _e($summery_text, 'sdevs_preorder'); ?></strong>
             </p>
 <?php
         else :

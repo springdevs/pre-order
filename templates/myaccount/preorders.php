@@ -26,10 +26,10 @@ $total_pages = ceil($postslist->found_posts / 5);
 <table class="shop_table my_account_preorder">
     <thead>
         <tr>
-            <th scope="col"><?php esc_html_e('Product', 'sdevs_wea'); ?></th>
-            <th scope="col"><?php esc_html_e('Order', 'sdevs_wea'); ?></th>
-            <th scope="col"><?php esc_html_e('Price', 'sdevs_wea'); ?></th>
-            <th scope="col"><?php esc_html_e('Release date', 'sdevs_wea'); ?></th>
+            <th scope="col"><?php esc_html_e('Product', 'sdevs_preorder'); ?></th>
+            <th scope="col"><?php esc_html_e('Order', 'sdevs_preorder'); ?></th>
+            <th scope="col"><?php esc_html_e('Price', 'sdevs_preorder'); ?></th>
+            <th scope="col"><?php esc_html_e('Release date', 'sdevs_preorder'); ?></th>
         </tr>
     </thead>
     <tbody>

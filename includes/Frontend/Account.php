@@ -49,7 +49,7 @@ class Account
     {
         $logout = $items['customer-logout'];
         unset($items['customer-logout']);
-        $items['preorder-endpoint'] = __('Pre-Orders', 'sdevs_wea');
+        $items['preorder-endpoint'] = __('Pre-Orders', 'sdevs_preorder');
         $items['customer-logout'] = $logout;
         return $items;
     }

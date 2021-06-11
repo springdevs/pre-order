@@ -21,7 +21,7 @@ class Settings
 
     public function add_section($sections)
     {
-        $sections['pre_order'] = __('Pre-Order', 'sdevs_wea');
+        $sections['pre_order'] = __('Pre-Order', 'sdevs_preorder');
         return $sections;
     }
 
@@ -31,27 +31,27 @@ class Settings
         if ($current_section == 'pre_order') :
             $invoice_settings = array(
                 array(
-                    'name' => __('Pre-Order Settings', 'sdevs_wea'),
+                    'name' => __('Pre-Order Settings', 'sdevs_preorder'),
                     'type' => 'title',
-                    'desc' => __('The following options are used to configure Pre-Order Module', 'sdevs_wea'),
+                    'desc' => __('The following options are used to configure Pre-Order Module', 'sdevs_preorder'),
                     'id'   => 'pre_order',
                 ),
                 // array(
-                //     'name' => __('Remove Pre-Order status', 'sdevs_wea'),
+                //     'name' => __('Remove Pre-Order status', 'sdevs_preorder'),
                 //     'id'   => 'preorder_remove_status_relsdate_pass',
                 //     'type' => 'checkbox',
-                //     'desc' => __('Remove Pre-Order status when the release date passes', 'sdevs_wea'),
+                //     'desc' => __('Remove Pre-Order status when the release date passes', 'sdevs_preorder'),
                 // ),
                 array(
-                    'name' => __('Default Add to Cart text', 'sdevs_wea'),
+                    'name' => __('Default Add to Cart text', 'sdevs_preorder'),
                     'id'   => 'preorder_default_add_to_cart_txt',
                     'type' => 'text',
                     'default' => 'Pre-order Now',
-                    'desc' => __("This text will be replaced on 'Add to Cart' button. By leaving it blank.", 'sdevs_wea'),
+                    'desc' => __("This text will be replaced on 'Add to Cart' button. By leaving it blank.", 'sdevs_preorder'),
                 ),
                 array(
-                    'title'    => __('No Date Label Color', 'sdevs_wea'),
-                    'desc'     => sprintf(__('Text color for No Date Label. Default %s.', 'sdevs_wea'), '<code>#47aeea</code>'),
+                    'title'    => __('No Date Label Color', 'sdevs_preorder'),
+                    'desc'     => sprintf(__('Text color for No Date Label. Default %s.', 'sdevs_preorder'), '<code>#47aeea</code>'),
                     'id'       => 'preorder_no_date_label_color',
                     'type'     => 'color',
                     'css'      => 'width:6em;',
@@ -59,8 +59,8 @@ class Settings
                     'desc_tip' => true,
                 ),
                 array(
-                    'title'    => __('Release Date Label Color', 'sdevs_wea'),
-                    'desc'     => sprintf(__('Text color for Release Date Label Color. Default %s.', 'sdevs_wea'), '<code>#000000</code>'),
+                    'title'    => __('Release Date Label Color', 'sdevs_preorder'),
+                    'desc'     => sprintf(__('Text color for Release Date Label Color. Default %s.', 'sdevs_preorder'), '<code>#000000</code>'),
                     'id'       => 'preorder_rels_date_label_color',
                     'type'     => 'color',
                     'css'      => 'width:6em;',
@@ -68,7 +68,7 @@ class Settings
                     'desc_tip' => true,
                 ),
                 array(
-                    'name' => __('Order item marker Text', 'sdevs_wea'),
+                    'name' => __('Order item marker Text', 'sdevs_preorder'),
                     'id'   => 'preorder_order_item_marker_txt',
                     'type' => 'text',
                     'default' => 'Pre-Order product'

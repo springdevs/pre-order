@@ -19,12 +19,12 @@ class Order
     {
         $has_preorder = $item->get_meta('_has_preorder', true);
         if ($has_preorder) {
-            echo '<br /><small>' . __(get_option('preorder_order_item_marker_txt', 'Pre-Order Product'), "sdevs_wea") . '</small>';
+            echo '<br /><small>' . __(get_option('preorder_order_item_marker_txt', 'Pre-Order Product'), "sdevs_preorder") . '</small>';
             $rels_date = $item->get_meta('_relase_date', true);
             if ($rels_date) {
-                echo '<br /><small>' . __('Release date: ', 'sdevs_wea') . date('F d, Y', strtotime($rels_date)) . '</small>';
+                echo '<br /><small>' . __('Release date: ', 'sdevs_preorder') . date('F d, Y', strtotime($rels_date)) . '</small>';
             } else {
-                echo '<br /><small>' . __('Release date: N/A', 'sdevs_wea') . '</small>';
+                echo '<br /><small>' . __('Release date: N/A', 'sdevs_preorder') . '</small>';
             }
         }
     }
@@ -34,7 +34,7 @@ class Order
         $post_ids = get_post_meta($order->get_id(), '_preorders', true);
         if ($post_ids && is_array($post_ids) && count($post_ids) > 0) {
             echo wc_get_order_status_name($order->get_status());
-            echo '<br><mark>' . esc_html(esc_html__('Has Pre-Orders', 'sdevs_wea')) . '</mark>';
+            echo '<br><mark>' . esc_html(esc_html__('Has Pre-Orders', 'sdevs_preorder')) . '</mark>';
         } else {
             echo wc_get_order_status_name($order->get_status());
         }
