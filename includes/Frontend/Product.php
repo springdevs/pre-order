@@ -16,6 +16,7 @@ class Product
         add_filter('woocommerce_product_single_add_to_cart_text', array($this, 'change_add_to_cart_text'));
         add_filter('woocommerce_product_add_to_cart_text', array($this, 'change_add_to_cart_text'));
         add_action('woocommerce_single_product_summary', [$this, 'put_product_txt'], 20);
+        add_filter('woocommerce_add_to_cart_validation', [$this, 'filter_add_to_cart_validation'], 20, 4);
     }
 
     public function change_add_to_cart_text($text)
@@ -41,6 +42,33 @@ class Product
         if ($has_preorder) {
             $this->display_txt($product);
         }
+    }
+
+    public function filter_add_to_cart_validation($passed, $product_id, $quantity, $variation_id = 0)
+    {
+        $has_preorder = Helper::has_preorder($product_id);
+        if ($has_preorder) {
+            $cartProducts = WC()->cart->get_cart();
+            foreach ($cartProducts as $key => $values) {
+                $cart_product = $values['data'];
+                $has_cart_preorder = Helper::has_preorder($cart_product->get_id());
+                if (!$has_cart_preorder) {
+                    wc_add_notice(__("Currently You have Non-Preorder product on cart !!", "sdevs_preorder"), 'error');
+                    return false;
+                }
+            }
+        } else {
+            $cartProducts = WC()->cart->get_cart();
+            foreach ($cartProducts as $key => $values) {
+                $cart_product = $values['data'];
+                $has_cart_preorder = Helper::has_preorder($cart_product->get_id());
+                if ($has_cart_preorder) {
+                    wc_add_notice(__("Currently You have Preorder product on cart !!", "sdevs_preorder"), 'error');
+                    return false;
+                }
+            }
+        }
+        return $passed;
     }
 
     public function display_txt($product, $echo = true)
