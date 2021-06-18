@@ -7,7 +7,7 @@
  *
  */
 
-$page = isset($_GET['pg']) ? $_GET['pg'] : 1;
+$page = isset($_GET['pg']) ? sanitize_text_field($_GET['pg']) : 1;
 
 $args = [
     'author' => get_current_user_id(),
@@ -20,7 +20,7 @@ $args = [
 $postslist = new WP_Query($args);
 
 
-$total_pages = ceil($postslist->found_posts / 5);
+$total_pages = ceil($postslist->found_posts / 10);
 ?>
 
 <table class="shop_table my_account_preorder">
@@ -58,13 +58,13 @@ $total_pages = ceil($postslist->found_posts / 5);
                         <a href="<?php the_permalink($product_id); ?>" target="_blank"><?php the_title(); ?></a>
                     </td>
                     <td>
-                        <a href="<?php echo "../view-order/" . $order_id; ?>" target="_blanl"><?php echo '#' . $order_id; ?></a>
+                        <a href="<?php echo esc_html("../view-order/" . $order_id); ?>" target="_blanl"><?php echo esc_html('#' . $order_id); ?></a>
                     </td>
                     <td>
-                        <?php echo $price; ?>
+                        <?php echo esc_html($price); ?>
                     </td>
                     <td>
-                        <?php echo $rels_date; ?>
+                        <?php echo esc_html($rels_date); ?>
                     </td>
                 </tr>
         <?php
