@@ -58,10 +58,10 @@ $total_pages = ceil($postslist->found_posts / 10);
                         <a href="<?php the_permalink($product_id); ?>" target="_blank"><?php the_title(); ?></a>
                     </td>
                     <td>
-                        <a href="<?php echo esc_html("../view-order/" . $order_id); ?>" target="_blanl"><?php echo esc_html('#' . $order_id); ?></a>
+                        <a href="<?php echo esc_html("../view-order/" . $order_id); ?>" target="_blank"><?php echo esc_html('#' . $order_id); ?></a>
                     </td>
                     <td>
-                        <?php echo esc_html($price); ?>
+                        <?php echo $price; ?>
                     </td>
                     <td>
                         <?php echo esc_html($rels_date); ?>
