@@ -21,10 +21,10 @@ class Admin
     public function __construct()
     {
         $this->dispatch_actions();
-        new Settings();
         new Product();
         new Gateways();
         new Preorder();
+        new Settings();
         new Order();
         new FrontendOrder();
     }
