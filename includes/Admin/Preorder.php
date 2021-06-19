@@ -17,8 +17,11 @@ class Preorder
     {
         add_action("init", [$this, "create_post_type"]);
         add_action("admin_menu", [$this, "create_admin_menu"]);
+        add_filter('bulk_actions-edit-sdevs_preorder', [$this, 'remove_bulk_action']);
         add_filter('post_row_actions', [$this, 'post_row_actions'], 10, 2);
         add_action('add_meta_boxes', [$this, "create_meta_boxes"]);
+        add_filter('manage_edit-sdevs_preorder_columns', [$this, 'add_custom_columns']);
+        add_action('manage_sdevs_preorder_posts_custom_column', [$this, 'add_custom_columns_data'], 10, 2);
     }
 
     /**
@@ -80,6 +83,12 @@ class Preorder
         remove_meta_box('submitdiv', 'sdevs_preorder', 'side');
     }
 
+    public function remove_bulk_action($actions)
+    {
+        unset($actions['edit']);
+        return $actions;
+    }
+
     /**
      * @param $unset_actions
      * @param $post
@@ -134,82 +143,7 @@ class Preorder
                     if ($item_rels_date) {
                         $rels_date = date('F d, Y', strtotime($item_rels_date));
                     }
-?>
-                    <style>
-                        #titlewrap>input {
-                            pointer-events: none;
-                        }
-                    </style>
-                    <table class="form-table">
-                        <tbody>
-                            <tr>
-                                <th scope="row"><?php esc_html_e('Product :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <a href="<?php echo esc_html(get_the_permalink($product_id)); ?>" target="_blank">
-                                        <?php esc_html_e($order_item->get_name()); ?>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Qty :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    x<?php echo esc_html($order_item->get_quantity()); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Price :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <?php echo wc_price($order_item->get_total()); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Order ID :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <a href="<?php echo get_edit_post_link($order_id); ?>"><?php echo $order_id; ?></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Order Status :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <?php esc_html_e($order->get_status(), 'sdevs_preorder'); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Order Date :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <?php esc_html_e(date('F d, Y', strtotime($order->get_date_created())), 'sdevs_preorder'); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Release Date :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <?php esc_html_e($rels_date, 'sdevs_preorder'); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Payment Method :', 'sdevs_preorder'); ?> </th>
-                                <td>
-                                    <?php esc_html_e($order->get_payment_method_title(), 'sdevs_preorder'); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><?php esc_html_e('Billing :', 'sdevs_preorder'); ?></th>
-                                <td><?php echo $order->get_formatted_billing_address(); ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><?php esc_html_e('Shipping :', 'sdevs_preorder') ?></th>
-                                <td><?php echo $order->get_formatted_shipping_address() ? $order->get_formatted_shipping_address() : esc_html("No shipping address set.", 'sdevs_preorder'); ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-        <?php
+                    include 'views/pre-order-details.php';
                 endif;
             endforeach;
         endif;
@@ -220,27 +154,56 @@ class Preorder
         $order_id = get_post_meta(get_the_ID(), '_order_id', true);
         $order = wc_get_order($order_id);
         if (!$order) return;
-        ?>
-        <table class="booking-customer-details" style="width: 100%;">
-            <tbody>
-                <tr>
-                    <th><?php esc_html_e('Name:', 'sdevs_preorder') ?></th>
-                    <td><?php echo $order->get_formatted_billing_full_name(); ?></td>
-                </tr>
-                <tr>
-                    <th><?php esc_html_e('Email:', 'sdevs_preorder'); ?></th>
-                    <td><a href="mailto:<?php echo esc_html($order->get_billing_email()); ?>"><?php echo esc_html($order->get_billing_email()); ?></a></td>
-                </tr>
-                <tr>
-                    <th><?php esc_html_e('Phone:', 'sdevs_preorder'); ?></th>
-                    <td><?php echo esc_html($order->get_billing_phone()); ?></td>
-                </tr>
-                <tr class="view">
-                    <th>&nbsp;</th>
-                    <td><br><a class="button button-small" target="_blank" href="<?php echo esc_html(get_edit_post_link($order_id)); ?>"><?php esc_html_e('View Order', 'sdevs_preorder'); ?></a></td>
-                </tr>
-            </tbody>
-        </table>
-<?php
+        include 'views/pre-order-customer.php';
+    }
+
+    public function add_custom_columns($columns)
+    {
+        $columns['order'] = __('Order', 'sdevs_preorder');
+        $columns['price'] = __('Price', 'sdevs_preorder');
+        $columns['rels_date'] = __('Release date', 'sdevs_preorder');
+        unset($columns['date']);
+        $columns['date'] = __('Date', 'sdevs_preorder');
+        return $columns;
+    }
+
+    public function add_custom_columns_data($column, $post_id)
+    {
+        $order_id = get_post_meta($post_id, '_order_id', true);
+        $order = wc_get_order($order_id);
+        if ($column === 'order') {
+            if ($order) {
+                echo '<a href="' . get_edit_post_link($order_id) . '" target="_blank">#' . $order_id . '</a>';
+            } else {
+                esc_html_e('Order not exixts !!', 'sdevs_preorder');
+            }
+        } elseif ($column === 'price') {
+            if ($order) {
+                $product_id = intval(get_post_meta($post_id, '_product_id', true));
+                foreach ($order->get_items() as $order_item) {
+                    if ($order_item['product_id'] === $product_id) {
+                        echo wc_price($order_item->get_total());
+                    }
+                }
+            } else {
+                esc_html_e('Order not exixts !!', 'sdevs_preorder');
+            }
+        } elseif ($column === 'rels_date') {
+            if ($order) {
+                $product_id = intval(get_post_meta($post_id, '_product_id', true));
+                foreach ($order->get_items() as $order_item) {
+                    if ($order_item['product_id'] === $product_id) {
+                        $rels_date = 'N/A';
+                        $item_rels_date = $order_item->get_meta('_relase_date', true);
+                        if ($item_rels_date) {
+                            $rels_date = date('F d, Y', strtotime($item_rels_date));
+                        }
+                        echo $rels_date;
+                    }
+                }
+            } else {
+                esc_html_e('Order not exixts !!', 'sdevs_preorder');
+            }
+        }
     }
 }
