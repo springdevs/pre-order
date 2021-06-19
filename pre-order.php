@@ -152,6 +152,10 @@ final class Sdevs_preorder
      */
     public function init_plugin()
     {
+        add_action('admin_notices', function () {
+            include 'includes/Admin/views/plugin-notice.php';
+        });
+        if (!class_exists('WooCommerce')) return;
         $this->includes();
         $this->init_hooks();
     }
