@@ -25,7 +25,7 @@ class Order
 
     public function add_custom_columns($columns)
     {
-        $columns['sdevs_preorders'] = __('Pre-Order', 'sdevs_wea');
+        $columns['sdevs_preorders'] = __('Pre-Order', 'sdevs_preorder');
         return $columns;
     }
 
@@ -42,7 +42,7 @@ class Order
             }
 
             foreach ($preorder_items as $preorder_item) :
-                $rels_date = $preorder_item->get_meta('_relase_date', true) ? date('F d, Y', strtotime($preorder_item->get_meta('_relase_date', true))) : __('No date set', 'sdevs_wea');
+                $rels_date = $preorder_item->get_meta('_relase_date', true) ? date('F d, Y', strtotime($preorder_item->get_meta('_relase_date', true))) : __('No date set', 'sdevs_preorder');
                 include 'views/order-column.php';
             endforeach;
         endif;
@@ -50,7 +50,7 @@ class Order
 
     public function add_preorder_label($item_id, $item)
     {
-        if ($item->get_meta('_has_preorder', true)) echo '<mark>' . __(get_option('preorder_order_item_marker_txt', 'Pre-Order product'), 'sdevs_wea') . '</mark>';
+        if ($item->get_meta('_has_preorder', true)) echo '<mark>' . __(get_option('preorder_order_item_marker_txt', 'Pre-Order product'), 'sdevs_preorder') . '</mark>';
     }
 
     public function remove_item_meta($formatted_meta, $item)

@@ -1,7 +1,42 @@
 <?php
 /*
-Module Name: Pre Order
+Plugin Name: Pre-Order
+Plugin URI: https://wordpress.org/plugins/sdevs-wc-preorder
+Description: Allow customers to pre-order from your store.
+Version: 1.0.0
+Author: SpringDevs
+Author URI: https://springdevs.com/
+License: GPLv2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: sdevs_preorder
+Domain Path: /languages
 */
+
+/**
+ * Copyright (c) 2021 SpringDevs (email: contact@springdevs.com). All rights reserved.
+ *
+ * Released under the GPL license
+ * http://www.opensource.org/licenses/gpl-license.php
+ *
+ * This is an add-on for WordPress
+ * http://wordpress.org/
+ *
+ * **********************************************************************
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * **********************************************************************
+ */
 
 // don't call the file directly
 if (!defined('ABSPATH')) {
@@ -40,6 +75,9 @@ final class Sdevs_preorder
     private function __construct()
     {
         $this->define_constants();
+
+        register_activation_hook(__FILE__, [$this, 'activate']);
+        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
 
         add_action('plugins_loaded', [$this, 'init_plugin']);
     }
@@ -114,8 +152,32 @@ final class Sdevs_preorder
      */
     public function init_plugin()
     {
+        add_action('admin_notices', function () {
+            include 'includes/Admin/views/plugin-notice.php';
+        });
+        if (!class_exists('WooCommerce')) return;
         $this->includes();
         $this->init_hooks();
+    }
+
+    /**
+     * Placeholder for activation function
+     *
+     * Nothing being called here yet.
+     */
+    public function activate()
+    {
+        $installer = new SpringDevs\PreOrder\Installer();
+        $installer->run();
+    }
+
+    /**
+     * Placeholder for deactivation function
+     *
+     * Nothing being called here yet.
+     */
+    public function deactivate()
+    {
     }
 
     /**
@@ -146,6 +208,9 @@ final class Sdevs_preorder
     public function init_hooks()
     {
         add_action('init', [$this, 'init_classes']);
+
+        // Localize our plugin
+        add_action('init', [$this, 'localization_setup']);
     }
 
     /**
@@ -161,6 +226,16 @@ final class Sdevs_preorder
 
         $this->container['api']    = new SpringDevs\PreOrder\Api();
         $this->container['assets'] = new SpringDevs\PreOrder\Assets();
+    }
+
+    /**
+     * Initialize plugin for localization
+     *
+     * @uses load_plugin_textdomain()
+     */
+    public function localization_setup()
+    {
+        load_plugin_textdomain('sdevs_preorder', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
 
     /**

@@ -5,15 +5,17 @@ namespace SpringDevs\PreOrder;
 /**
  * Scripts and Styles Class
  */
-class Assets {
+class Assets
+{
     /**
      * Assets constructor.
      */
-    function __construct() {
-        if ( is_admin() ) {
-            add_action( 'admin_enqueue_scripts', [ $this, 'register' ], 5 );
+    function __construct()
+    {
+        if (is_admin()) {
+            add_action('admin_enqueue_scripts', [$this, 'register'], 5);
         } else {
-            add_action( 'wp_enqueue_scripts', [ $this, 'register' ], 5 );
+            add_action('wp_enqueue_scripts', [$this, 'register'], 5);
         }
     }
 
@@ -22,9 +24,10 @@ class Assets {
      *
      * @return void
      */
-    public function register() {
-        $this->register_scripts( $this->get_scripts() );
-        $this->register_styles( $this->get_styles() );
+    public function register()
+    {
+        $this->register_scripts($this->get_scripts());
+        $this->register_styles($this->get_styles());
     }
 
     /**
@@ -34,13 +37,14 @@ class Assets {
      *
      * @return void
      */
-    private function register_scripts( $scripts ) {
-        foreach ( $scripts as $handle => $script ) {
-            $deps      = isset( $script['deps'] ) ? $script['deps'] : false;
-            $in_footer = isset( $script['in_footer'] ) ? $script['in_footer'] : false;
-            $version   = isset( $script['version'] ) ? $script['version'] : SDEVS_PREORDER_VERSION;
+    private function register_scripts($scripts)
+    {
+        foreach ($scripts as $handle => $script) {
+            $deps      = isset($script['deps']) ? $script['deps'] : false;
+            $in_footer = isset($script['in_footer']) ? $script['in_footer'] : false;
+            $version   = isset($script['version']) ? $script['version'] : SDEVS_PREORDER_VERSION;
 
-            wp_register_script( $handle, $script['src'], $deps, $version, $in_footer );
+            wp_register_script($handle, $script['src'], $deps, $version, $in_footer);
         }
     }
 
@@ -51,11 +55,12 @@ class Assets {
      *
      * @return void
      */
-    public function register_styles( $styles ) {
-        foreach ( $styles as $handle => $style ) {
-            $deps = isset( $style['deps'] ) ? $style['deps'] : false;
+    public function register_styles($styles)
+    {
+        foreach ($styles as $handle => $style) {
+            $deps = isset($style['deps']) ? $style['deps'] : false;
 
-            wp_register_style( $handle, $style['src'], $deps, SDEVS_PREORDER_VERSION );
+            wp_register_style($handle, $style['src'], $deps, SDEVS_PREORDER_VERSION);
         }
     }
 
@@ -64,11 +69,17 @@ class Assets {
      *
      * @return array
      */
-    public function get_scripts() {
+    public function get_scripts()
+    {
         $plugin_js_assets_path = SDEVS_PREORDER_ASSETS . '/js/';
 
         $scripts = [
-            
+            "sdevs-preorder-adminjs" => [
+                "src" => $plugin_js_assets_path . 'admin.js',
+                "deps" => ['wp-color-picker'],
+                "version" => '1.0.0',
+                "in_footer" => true
+            ]
         ];
 
         return $scripts;
@@ -79,12 +90,11 @@ class Assets {
      *
      * @return array
      */
-    public function get_styles() {
+    public function get_styles()
+    {
         $plugin_css_assets_path = SDEVS_PREORDER_ASSETS . '/css/';
 
-        $styles = [
-            
-        ];
+        $styles = [];
 
         return $styles;
     }

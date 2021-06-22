@@ -24,7 +24,7 @@ class Product
     {
         $class                  = apply_filters('sdevs_preorder_product_datatab_class', 'show_if_simple');
         $tabs['sdevs_preorder'] = array(
-            'label'  => __('Pre-Order', 'sdevs_wea'),
+            'label'  => __('Pre-Order', 'sdevs_preorder'),
             'class'  => $class,
             'target' => 'sdevs_preorder_meta',
         );
