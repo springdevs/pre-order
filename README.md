@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### 1.0.1
+
+- Fix woocommerce alert bug !!
+
 ### 1.0.0
 
 - Initial release
