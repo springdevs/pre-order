@@ -1,4 +1,4 @@
-<div id="sdevs_preorder_meta" class="panel sdevs_panel sdevs-form woocommerce_options_panel">
+<div id="sdevs_preorder_meta" class="panel pre-order_panel woocommerce_options_panel">
     <strong><?php _e('Pre-Order Settings', 'sdevs_preorder'); ?></strong>
     <?php
     wp_nonce_field('_preorder_product_form_nonce', '_preorder_free_nonce', false);

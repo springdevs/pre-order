@@ -15,9 +15,20 @@ class Product
      */
     public function __construct()
     {
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('woocommerce_product_data_tabs', array($this, 'custom_data_tabs'));
         add_filter('woocommerce_product_data_panels', array($this, 'custom_tab_data'));
         add_action("save_post_product", array($this, 'save_data'));
+    }
+
+    /**
+     * Load scripts and styles for the app
+     *
+     * @return void
+     */
+    public function enqueue_scripts()
+    {
+        wp_enqueue_style('sdevs-preorder-admincss');
     }
 
     public function custom_data_tabs($tabs)
