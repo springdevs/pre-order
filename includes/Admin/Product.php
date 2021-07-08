@@ -37,7 +37,7 @@ class Product
         $enable = get_post_meta($post_id, "_has_preorder", true) ? "yes" : false;
         $add_to_cart_label = null;
         $no_date_label = null;
-        $rels_date_label = null;
+        $rels_date_label = "we can ship this product within [_release_date]";
         $rels_date = null;
         if ($enable) {
             $labels = get_post_meta($post_id, "_product_preorder_labels", true);
