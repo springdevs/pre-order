@@ -24,7 +24,7 @@ class Gateways
      */
     public function filter_available_gateways($available_gateways)
     {
-        if (is_admin())
+        if (is_admin() || WC()->cart->get_cart_contents_count() == 0)
             return $available_gateways;
 
         if (!isset($available_gateways['sdevs-preorder-gateway'])) return [];
