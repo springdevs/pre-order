@@ -20,6 +20,10 @@ class PreorderGateway extends WC_Payment_Gateway
         $this->title             = $this->method_title;
         $this->order_button_text = __('Pay Later', 'sdevs_preorder');
 
+        $this->init_form_fields();
+        $this->init_settings();
+
+        add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
         add_action('woocommerce_thankyou_' . $this->id, array($this, 'thankyou_page'));
     }
 
@@ -28,14 +32,14 @@ class PreorderGateway extends WC_Payment_Gateway
      */
     public function admin_options()
     {
+        echo '<style>#mainform h2 { display: none }</style>';
         $title = (!empty($this->method_title)) ? $this->method_title : __('Settings', 'sdevs_preorder');
 
         echo '<h3>' . esc_html($title) . '</h3>';
 
         echo '<p>' . esc_html__('This gateway requires no configuration.', 'sdevs_preorder') . '</p>';
 
-        // Hides the save button
-        echo '<style>p.submit input[type="submit"] { display: none }</style>';
+        parent::admin_options();
     }
 
     /**
@@ -60,6 +64,14 @@ class PreorderGateway extends WC_Payment_Gateway
             'result'   => 'success',
             'redirect' => $this->get_return_url($order),
         );
+    }
+
+    /**
+     * Initialise Gateway Settings Form Fields.
+     */
+    public function init_form_fields()
+    {
+        $this->form_fields = include __DIR__ . '/settings-gateway.php';
     }
 
     /**
