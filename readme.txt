@@ -1,10 +1,10 @@
 === Pre Order Addon for WooCommerce - Advance Order/Backorder Plugin  ===
-Contributors: naminbd, istiaqnirab
+Contributors: springdevs, naminbd, istiaqnirab
 Donate link: https://springdevs.com/
 Tags: WooCommerce, preorder, pre order, pre-order, woocommerce-preorder
 Requires at least: 1.0.0
 Tested up to: 5.7
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,8 +49,14 @@ Not yet. But we have plans for it
 
 == Changelog ==
 
+1.0.2 - July 10, 2021
+* Add default field value for release date label field
+* Improve UI
+* Customize “Pay Later” payment method
+* Add pre-order status to “WooCommerce Status” dashboard widget
+
 1.0.1 - June 23, 2021
-- Fix woocommerce alert bug
+* Fix woocommerce alert bug
 
 1.0.0 
-- Initial release
+* Initial release
