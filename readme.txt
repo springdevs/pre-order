@@ -49,14 +49,14 @@ Not yet. But we have plans for it
 
 == Changelog ==
 
-1.0.2 - July 10, 2021
+= 1.0.2 - July 10, 2021 =
 * Add default field value for release date label field
 * Improve UI
 * Customize “Pay Later” payment method
-* Add pre-order status to “WooCommerce Status” dashboard widget
+* Display pre-order status to “WooCommerce Status” dashboard widget
 
-1.0.1 - June 23, 2021
+= 1.0.1 - June 23, 2021 =
 * Fix woocommerce alert bug
 
-1.0.0 
+= 1.0.0 = 
 * Initial release

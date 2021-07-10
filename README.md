@@ -9,7 +9,7 @@
 - Add default field value for release date label field
 - Improve UI
 - Customize “Pay Later” payment method
-- Add pre-order status to “WooCommerce Status” dashboard widget
+- Display pre-order status to “WooCommerce Status” dashboard widget
 
 ### 1.0.1
 
