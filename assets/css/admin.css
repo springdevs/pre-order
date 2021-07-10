@@ -1,0 +1,36 @@
+.pre-order_panel {
+    padding: 15px 10px 10px 10px !important;
+}
+  
+.pre-order_panel strong {
+    display: grid;
+    color: #23282d;
+    margin-left: 12px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pre-order_panel label {
+    font-weight: 500 !important;
+}
+
+.pre-order_panel label {
+    color: gray;
+}
+
+.pre-order_panel label > strong {
+    color: #484747;
+}
+
+.pre-order_panel select,
+.pre-order_panel input {
+    border-color: #e0d6d6;
+    color: #72727d;
+    border-radius: 5px;
+}
+
+.pre-order_panel textarea {
+    border-color: #e0d6d6;
+    color: #72727d;
+}

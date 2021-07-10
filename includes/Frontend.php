@@ -9,6 +9,7 @@ use SpringDevs\PreOrder\Frontend\Checkout;
 use SpringDevs\PreOrder\Frontend\Gateways as FrontendGateways;
 use SpringDevs\PreOrder\Frontend\Order;
 use SpringDevs\PreOrder\Illuminate\Gateways;
+use SpringDevs\PreOrder\Illuminate\Upgrade;
 
 /**
  * Frontend handler class
@@ -20,6 +21,7 @@ class Frontend
      */
     public function __construct()
     {
+        new Upgrade();
         $this->dispatch_actions();
         new Product;
         new Cart;

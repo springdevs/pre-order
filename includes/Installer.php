@@ -24,13 +24,22 @@ class Installer
      */
     public function add_version()
     {
-        $installed = get_option('Pre_Order_installed');
+        $installed = get_option('sdevs_preorder_installed');
 
         if (!$installed) {
-            update_option('Pre_Order_installed', time());
+            update_option('sdevs_preorder_installed', time());
         }
 
-        update_option('Pre_Order_version', SDEVS_PREORDER_VERSION);
+        $gateway_settings = get_option("woocommerce_sdevs-preorder-gateway_settings");
+        if (!$gateway_settings) {
+            update_option("woocommerce_sdevs-preorder-gateway_settings", [
+                "enabled" => "yes",
+                "title" => "Pay Later",
+                "description" => "When product is confirmed then You need to Pay."
+            ]);
+        }
+
+        update_option('sdevs_preorder_version', SDEVS_PREORDER_VERSION);
     }
 
     /**

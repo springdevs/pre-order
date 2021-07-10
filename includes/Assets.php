@@ -94,7 +94,11 @@ class Assets
     {
         $plugin_css_assets_path = SDEVS_PREORDER_ASSETS . '/css/';
 
-        $styles = [];
+        $styles = [
+            "sdevs-preorder-admincss" => [
+                "src" => $plugin_css_assets_path . 'admin.css'
+            ]
+        ];
 
         return $styles;
     }
