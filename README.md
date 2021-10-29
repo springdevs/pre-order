@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### 1.0.3
+
+- Tested up to wordpress v5.8
+
 ### 1.0.2
 
 - Add default field value for release date label field

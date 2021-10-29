@@ -3,8 +3,8 @@ Contributors: springdevs, naminbd, istiaqnirab
 Donate link: https://springdevs.com/
 Tags: WooCommerce, preorder, pre order, pre-order, woocommerce-preorder
 Requires at least: 1.0.0
-Tested up to: 5.7
-Stable tag: 1.0.2
+Tested up to: 5.8
+Stable tag: 1.0.3
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,9 @@ Yes, we would love work on your custom project. Please feel free to reach us usi
 Not yet. But we have plans for it
 
 == Changelog ==
+
+= 1.0.2 - October 30, 2021 =
+* Tested up to wordpress v5.8
 
 = 1.0.2 - July 10, 2021 =
 * Add default field value for release date label field
