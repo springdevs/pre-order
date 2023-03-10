@@ -3,7 +3,7 @@
 Plugin Name: Pre-Order
 Plugin URI: https://wordpress.org/plugins/sdevs-wc-preorder
 Description: Allow customers to pre-order from your store.
-Version: 1.0.3
+Version: 1.0.4
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -39,8 +39,8 @@ Domain Path: /languages
  */
 
 // don't call the file directly
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -50,222 +50,212 @@ require_once __DIR__ . '/vendor/autoload.php';
  *
  * @class Sdevs_preorder The class that holds the entire Sdevs_preorder plugin
  */
-final class Sdevs_preorder
-{
-    /**
-     * Plugin version
-     *
-     * @var string
-     */
-    const version = '1.0.3';
+final class Sdevs_preorder {
 
-    /**
-     * Holds various class instances
-     *
-     * @var array
-     */
-    private $container = [];
+	/**
+	 * Plugin version
+	 *
+	 * @var string
+	 */
+	const version = '1.0.4';
 
-    /**
-     * Constructor for the Sdevs_preorder class
-     *
-     * Sets up all the appropriate hooks and actions
-     * within our plugin.
-     */
-    private function __construct()
-    {
-        $this->define_constants();
+	/**
+	 * Holds various class instances
+	 *
+	 * @var array
+	 */
+	private $container = array();
 
-        register_activation_hook(__FILE__, [$this, 'activate']);
-        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+	/**
+	 * Constructor for the Sdevs_preorder class
+	 *
+	 * Sets up all the appropriate hooks and actions
+	 * within our plugin.
+	 */
+	private function __construct() {
+		$this->define_constants();
 
-        add_action('plugins_loaded', [$this, 'init_plugin']);
-    }
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 
-    /**
-     * Initializes the Sdevs_preorder() class
-     *
-     * Checks for an existing Sdevs_preorder() instance
-     * and if it doesn't find one, creates it.
-     *
-     * @return Sdevs_preorder|bool
-     */
-    public static function init()
-    {
-        static $instance = false;
+		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
+	}
 
-        if (!$instance) {
-            $instance = new Sdevs_preorder();
-        }
+	/**
+	 * Initializes the Sdevs_preorder() class
+	 *
+	 * Checks for an existing Sdevs_preorder() instance
+	 * and if it doesn't find one, creates it.
+	 *
+	 * @return Sdevs_preorder|bool
+	 */
+	public static function init() {
+		static $instance = false;
 
-        return $instance;
-    }
+		if ( ! $instance ) {
+			$instance = new Sdevs_preorder();
+		}
 
-    /**
-     * Magic getter to bypass referencing plugin.
-     *
-     * @param $prop
-     *
-     * @return mixed
-     */
-    public function __get($prop)
-    {
-        if (array_key_exists($prop, $this->container)) {
-            return $this->container[$prop];
-        }
+		return $instance;
+	}
 
-        return $this->{$prop};
-    }
+	/**
+	 * Magic getter to bypass referencing plugin.
+	 *
+	 * @param $prop
+	 *
+	 * @return mixed
+	 */
+	public function __get( $prop ) {
+		if ( array_key_exists( $prop, $this->container ) ) {
+			return $this->container[ $prop ];
+		}
 
-    /**
-     * Magic isset to bypass referencing plugin.
-     *
-     * @param $prop
-     *
-     * @return mixed
-     */
-    public function __isset($prop)
-    {
-        return isset($this->{$prop}) || isset($this->container[$prop]);
-    }
+		return $this->{$prop};
+	}
 
-    /**
-     * Define the constants
-     *
-     * @return void
-     */
-    public function define_constants()
-    {
-        define('SDEVS_PREORDER_VERSION', self::version);
-        define('SDEVS_PREORDER_FILE', __FILE__);
-        define('SDEVS_PREORDER_PATH', dirname(SDEVS_PREORDER_FILE));
-        define('SDEVS_PREORDER_INCLUDES', SDEVS_PREORDER_PATH . '/includes');
-        define('SDEVS_PREORDER_TEMPLATES', SDEVS_PREORDER_PATH . '/templates/');
-        define('SDEVS_PREORDER_URL', plugins_url('', SDEVS_PREORDER_FILE));
-        define('SDEVS_PREORDER_ASSETS', SDEVS_PREORDER_URL . '/assets');
-    }
+	/**
+	 * Magic isset to bypass referencing plugin.
+	 *
+	 * @param $prop
+	 *
+	 * @return mixed
+	 */
+	public function __isset( $prop ) {
+		return isset( $this->{$prop} ) || isset( $this->container[ $prop ] );
+	}
 
-    /**
-     * Load the plugin after all plugis are loaded
-     *
-     * @return void
-     */
-    public function init_plugin()
-    {
-        if (!class_exists('WooCommerce')) {
-            add_action('admin_notices', function () {
-                include 'includes/Admin/views/plugin-notice.php';
-            });
-            return;
-        }
-        $this->includes();
-        $this->init_hooks();
-    }
+	/**
+	 * Define the constants
+	 *
+	 * @return void
+	 */
+	public function define_constants() {
+		define( 'SDEVS_PREORDER_VERSION', self::version );
+		define( 'SDEVS_PREORDER_FILE', __FILE__ );
+		define( 'SDEVS_PREORDER_PATH', dirname( SDEVS_PREORDER_FILE ) );
+		define( 'SDEVS_PREORDER_INCLUDES', SDEVS_PREORDER_PATH . '/includes' );
+		define( 'SDEVS_PREORDER_TEMPLATES', SDEVS_PREORDER_PATH . '/templates/' );
+		define( 'SDEVS_PREORDER_URL', plugins_url( '', SDEVS_PREORDER_FILE ) );
+		define( 'SDEVS_PREORDER_ASSETS', SDEVS_PREORDER_URL . '/assets' );
+	}
 
-    /**
-     * Placeholder for activation function
-     *
-     * Nothing being called here yet.
-     */
-    public function activate()
-    {
-        $installer = new SpringDevs\PreOrder\Installer();
-        $installer->run();
-    }
+	/**
+	 * Load the plugin after all plugis are loaded
+	 *
+	 * @return void
+	 */
+	public function init_plugin() {
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			add_action(
+				'admin_notices',
+				function () {
+					include 'includes/Admin/views/plugin-notice.php';
+				}
+			);
+			return;
+		}
+		$this->includes();
+		$this->init_hooks();
+	}
 
-    /**
-     * Placeholder for deactivation function
-     *
-     * Nothing being called here yet.
-     */
-    public function deactivate()
-    {
-    }
+	/**
+	 * Placeholder for activation function
+	 *
+	 * Nothing being called here yet.
+	 */
+	public function activate() {
+		$installer = new SpringDevs\PreOrder\Installer();
+		$installer->run();
+	}
 
-    /**
-     * Include the required files
-     *
-     * @return void
-     */
-    public function includes()
-    {
-        if ($this->is_request('admin')) {
-            $this->container['admin'] = new SpringDevs\PreOrder\Admin();
-        }
+	/**
+	 * Placeholder for deactivation function
+	 *
+	 * Nothing being called here yet.
+	 */
+	public function deactivate() {
+	}
 
-        if ($this->is_request('frontend')) {
-            $this->container['frontend'] = new SpringDevs\PreOrder\Frontend();
-        }
+	/**
+	 * Include the required files
+	 *
+	 * @return void
+	 */
+	public function includes() {
+		if ( $this->is_request( 'admin' ) ) {
+			$this->container['admin'] = new SpringDevs\PreOrder\Admin();
+		}
 
-        if ($this->is_request('ajax')) {
-            // require_once SDEVS_PREORDER_INCLUDES . '/class-ajax.php';
-        }
-    }
+		if ( $this->is_request( 'frontend' ) ) {
+			$this->container['frontend'] = new SpringDevs\PreOrder\Frontend();
+		}
 
-    /**
-     * Initialize the hooks
-     *
-     * @return void
-     */
-    public function init_hooks()
-    {
-        add_action('init', [$this, 'init_classes']);
+		if ( $this->is_request( 'ajax' ) ) {
+			// require_once SDEVS_PREORDER_INCLUDES . '/class-ajax.php';
+		}
+	}
 
-        // Localize our plugin
-        add_action('init', [$this, 'localization_setup']);
-    }
+	/**
+	 * Initialize the hooks
+	 *
+	 * @return void
+	 */
+	public function init_hooks() {
+		add_action( 'init', array( $this, 'init_classes' ) );
 
-    /**
-     * Instantiate the required classes
-     *
-     * @return void
-     */
-    public function init_classes()
-    {
-        if ($this->is_request('ajax')) {
-            // $this->container['ajax'] =  new SpringDevs\PreOrder\Ajax();
-        }
+		// Localize our plugin
+		add_action( 'init', array( $this, 'localization_setup' ) );
+	}
 
-        $this->container['api']    = new SpringDevs\PreOrder\Api();
-        $this->container['assets'] = new SpringDevs\PreOrder\Assets();
-    }
+	/**
+	 * Instantiate the required classes
+	 *
+	 * @return void
+	 */
+	public function init_classes() {
+		if ( $this->is_request( 'ajax' ) ) {
+			// $this->container['ajax'] =  new SpringDevs\PreOrder\Ajax();
+		}
 
-    /**
-     * Initialize plugin for localization
-     *
-     * @uses load_plugin_textdomain()
-     */
-    public function localization_setup()
-    {
-        load_plugin_textdomain('sdevs_preorder', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-    }
+		$this->container['api']    = new SpringDevs\PreOrder\Api();
+		$this->container['assets'] = new SpringDevs\PreOrder\Assets();
+	}
 
-    /**
-     * What type of request is this?
-     *
-     * @param string $type admin, ajax, cron or frontend.
-     *
-     * @return bool
-     */
-    private function is_request($type)
-    {
-        switch ($type) {
-            case 'admin':
-                return is_admin();
+	/**
+	 * Initialize plugin for localization
+	 *
+	 * @uses load_plugin_textdomain()
+	 */
+	public function localization_setup() {
+		load_plugin_textdomain( 'sdevs_preorder', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
 
-            case 'ajax':
-                return defined('DOING_AJAX');
+	/**
+	 * What type of request is this?
+	 *
+	 * @param string $type admin, ajax, cron or frontend.
+	 *
+	 * @return bool
+	 */
+	private function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin':
+				return is_admin();
 
-            case 'rest':
-                return defined('REST_REQUEST');
+			case 'ajax':
+				return defined( 'DOING_AJAX' );
 
-            case 'cron':
-                return defined('DOING_CRON');
+			case 'rest':
+				return defined( 'REST_REQUEST' );
 
-            case 'frontend':
-                return (!is_admin() || defined('DOING_AJAX')) && !defined('DOING_CRON');
-        }
-    }
+			case 'cron':
+				return defined( 'DOING_CRON' );
+
+			case 'frontend':
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
 } // Sdevs_preorder
 
 /**
@@ -273,9 +263,8 @@ final class Sdevs_preorder
  *
  * @return \Sdevs_preorder|bool
  */
-function sdevs_preorder()
-{
-    return Sdevs_preorder::init();
+function sdevs_preorder() {
+	return Sdevs_preorder::init();
 }
 
 /**

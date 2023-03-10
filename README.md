@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### 1.0.4
+
+- Label placement setting added
+
 ### 1.0.3
 
 - Tested up to wordpress v5.8
