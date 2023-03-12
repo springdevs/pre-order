@@ -4,7 +4,7 @@ Donate link: https://springdevs.com/
 Tags: WooCommerce, preorder, pre order, pre-order, woocommerce-preorder
 Requires at least: 4.0
 Tested up to: 6.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,9 @@ Yes, we would love work on your custom project. Please feel free to reach us usi
 Not yet. But we have plans for it
 
 == Changelog ==
+
+= 1.0.5 - March 12, 2023 =
+* Fix methods not displaying inside checkout pay page
 
 = 1.0.5 - March 12, 2023 =
 * Add classes to label, marker.

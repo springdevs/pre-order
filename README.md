@@ -6,6 +6,10 @@
 
 ### 1.0.5
 
+- Fix methods not displaying inside checkout pay page.
+
+### 1.0.5
+
 - Add classes to label, marker.
 
 ### 1.0.4
