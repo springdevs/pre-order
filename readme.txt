@@ -49,7 +49,7 @@ Not yet. But we have plans for it
 
 == Changelog ==
 
-= 1.0.5 - March 12, 2023 =
+= 1.0.6 - March 12, 2023 =
 * Fix methods not displaying inside checkout pay page
 
 = 1.0.5 - March 12, 2023 =
