@@ -4,6 +4,10 @@
 
 ## Changelog
 
+### 1.0.5
+
+- Add classes to label, marker.
+
 ### 1.0.4
 
 - Label placement setting added

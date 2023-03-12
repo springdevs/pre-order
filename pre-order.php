@@ -3,7 +3,7 @@
 Plugin Name: Pre-Order
 Plugin URI: https://wordpress.org/plugins/sdevs-wc-preorder
 Description: Allow customers to pre-order from your store.
-Version: 1.0.4
+Version: 1.0.5
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -57,7 +57,7 @@ final class Sdevs_preorder {
 	 *
 	 * @var string
 	 */
-	const version = '1.0.4';
+	const version = '1.0.5';
 
 	/**
 	 * Holds various class instances

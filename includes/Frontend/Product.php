@@ -108,7 +108,7 @@ class Product {
 		}
 		if ( $echo ) :
 			?>
-			<p>
+			<p class="sdevs_preorder_single_notice">
 				<strong <?php echo $attr; ?>><?php _e( $summery_text, 'sdevs_preorder' ); ?></strong>
 			</p>
 			<?php
