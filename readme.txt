@@ -1,5 +1,5 @@
 === Pre Order Addon for WooCommerce - Advance Order/Backorder Plugin  ===
-Contributors: springdevs, naminbd, istiaqnirab
+Contributors: springdevs, naminbd, ok9xnirab
 Donate link: https://springdevs.com/
 Tags: WooCommerce, preorder, pre order, pre-order, woocommerce-preorder
 Requires at least: 4.0
